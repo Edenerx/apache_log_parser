@@ -8,13 +8,6 @@ SCRIPTPATH="/home/eden/logsrecords.sh"
 SQLUSER="eden" 
 SQLPASS="123456789"
 KEYGENPATH="/root/.ssh/id_rsa"
-CLIENTINFO=`cat << EOG  
-    [client]
-    user=$SQLUSER
-    password=$SQLPASS
-EOG`
-
-echo $CLIENTINFO > $CLIENTNAME
 
 scp -i $KEYGENPATH $SCRIPTPATH $USER@$USERIP:/root
 ssh $USER@$USERIP << EOF
@@ -24,5 +17,5 @@ ssh $USER@$USERIP << EOF
     echo "[client]" >> $CLIENTNAME
     echo "user=$SQLUSER" >> $CLIENTNAME
     echo "password=$SQLPASS" >> $CLIENTNAME
-    echo "* * * * * root /mnt/storage/logsrecords.sh $USERIP" >> $CRONPATH
+    echo "* * * * * root /root/logsrecords.sh $USERIP >> $CRONPATH
 EOF
